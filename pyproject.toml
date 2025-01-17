@@ -1,0 +1,25 @@
+[project]
+name = "bumpy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "luiarthur", email = "luiarthur@gmail.com" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "gitpython>=3.1.44",
+    "semver>=3.0.2",
+]
+
+[project.scripts]
+bumpy = "bumpy:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.2",
+]
