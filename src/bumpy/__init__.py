@@ -46,7 +46,9 @@ def main() -> None:
 
     if response == "yes":
         repo.create_tag(new_tag)
+        print(f"Created tag {new_tag}")
         if args.push:
             repo.remotes.origin.push(new_tag)
+            print(f"Pushed tag {new_tag}")
     else:
         print("No updates to git tags.")
