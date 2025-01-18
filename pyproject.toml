@@ -1,9 +1,12 @@
 [project]
 name = "bump-cli"
-version = "0.3.0"
-description = "Add your description here"
+version = "0.3.1"
+description = "A command line tool for bumping git tag versions"
 readme = "README.md"
 authors = [
+    { name = "luiarthur", email = "luiarthur@gmail.com" }
+]
+maintainers = [
     { name = "luiarthur", email = "luiarthur@gmail.com" }
 ]
 requires-python = ">=3.8"
@@ -11,6 +14,21 @@ dependencies = [
     "gitpython>=3.1.44",
     "semver>=3.0.2",
 ]
+classifiers = [
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Homepage = "https://github.com/luiarthur/bump-cli"
+Repository = "https://github.com/luiarthur/bump-cli"
+Issues = "https://github.com/luiarthur/bump-cli/issues"
 
 [project.scripts]
 bump = "bump:main"
