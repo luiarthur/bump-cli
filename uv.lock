@@ -2,8 +2,8 @@ version = 1
 requires-python = ">=3.8"
 
 [[package]]
-name = "bumpy"
-version = "0.1.3"
+name = "bump-version"
+version = "0.1.4"
 source = { editable = "." }
 dependencies = [
     { name = "gitpython" },

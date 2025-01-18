@@ -5,7 +5,7 @@ from git import Repo
 
 
 def parse_args():
-    parser = ArgumentParser("bumpy")
+    parser = ArgumentParser("bump")
     parser.add_argument(
         "kind",
         choices=["major", "minor", "patch", "prerelease", "build"],

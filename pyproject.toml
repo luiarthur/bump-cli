@@ -1,6 +1,6 @@
 [project]
-name = "bum-py"
-version = "0.1.4"
+name = "bump-version"
+version = "0.2.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-bumpy = "bumpy:main"
+bump = "bump:main"
 
 [build-system]
 requires = ["setuptools>=68"]
