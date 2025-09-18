@@ -10,7 +10,7 @@ authors = [
 maintainers = [
     { name = "luiarthur", email = "luiarthur@gmail.com" }
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = [
     "gitpython>=3.1.44",
     "semver>=3.0.2",
