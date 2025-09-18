@@ -1,8 +1,9 @@
 [project]
 name = "bump-cli"
-version = "0.3.1"
+dynamic = ["version"]
 description = "A command line tool for bumping git tag versions"
 readme = "README.md"
+license = { file = "LICENSE" }
 authors = [
     { name = "luiarthur", email = "luiarthur@gmail.com" }
 ]
@@ -13,16 +14,17 @@ requires-python = ">=3.8"
 dependencies = [
     "gitpython>=3.1.44",
     "semver>=3.0.2",
+    "typer>=0.17.4",
 ]
 classifiers = [
     "Operating System :: OS Independent",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 
 [project.urls]
@@ -34,13 +36,12 @@ Issues = "https://github.com/luiarthur/bump-cli/issues"
 bump = "bump:main"
 
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=74.1", "setuptools-git-versioning>=2.0,<3"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools-git-versioning]
+enabled = true
 
 [tool.ruff]
 line-length = 80
-
-# This is a workaround due to https://github.com/astral-sh/uv/issues/9513.
-# When setuptools is fixed, this can be removed. (1/16/2025)
-[tool.setuptools]
-license-files = []
+preview = true

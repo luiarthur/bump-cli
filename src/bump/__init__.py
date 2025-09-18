@@ -1,29 +1,39 @@
-from argparse import ArgumentParser
+from enum import Enum
+from importlib.metadata import version
+from pathlib import Path
+from typing import Literal
 
 import semver
 from git import Repo
+from rich.prompt import Confirm
+from typer import Option, Typer
+
+__version__ = version("bump-cli")
 
 
-def parse_args():
-    parser = ArgumentParser("bump")
-    parser.add_argument(
-        "kind",
-        choices=["major", "minor", "patch", "prerelease", "build"],
-    )
-    parser.add_argument("-r", "--repo", default=".", help="Path to git repo.")
-    parser.add_argument(
+app = Typer()
+
+
+class Kind(str, Enum):
+    major = "major"
+    minor = "minor"
+    patch = "patch"
+    prerelease = "prerelease"
+    build = "build"
+
+
+@app.command()
+def default(
+    kind: Kind,
+    repo: Path = Option(Path("."), "-r", "--repo", help="Path to git repo."),
+    push: bool = Option(
+        False,
         "-p",
         "--push",
-        action="store_true",
-        help="If present, perform `git push --tags` after updating tag.",
-    )
-    return parser.parse_args()
-
-
-def main() -> None:
-    args = parse_args()
-
-    repo = Repo(args.repo)
+        help="If present, perform `git push tags` after updating tag.",
+    ),
+) -> None:
+    repo = Repo(repo)
     git_tags = [t.name[1:] for t in repo.tags]
     sorted_git_tags = sorted(git_tags, key=semver.VersionInfo.parse)
     current_tag = sorted_git_tags[-1]
@@ -34,21 +44,19 @@ def main() -> None:
         patch=semver.bump_patch,
         prerelease=semver.bump_prerelease,
         build=semver.bump_build,
-    ).get(args.kind)
+    ).get(kind)
 
     new_tag = f"v{bump(current_tag)}"
 
-    response = (
-        input(f"Updating from v{current_tag} to {new_tag}. Proceed? [yes/no]: ")
-        .strip()
-        .lower()
-    )
-
-    if response == "yes":
+    if Confirm.ask(f"Updating from v{current_tag} to {new_tag}. Proceed?"):
         repo.create_tag(new_tag)
         print(f"Created tag {new_tag}")
-        if args.push:
+        if push:
             repo.remotes.origin.push(new_tag)
             print(f"Pushed tag {new_tag}")
     else:
         print("No updates to git tags.")
+
+
+def main():
+    app()
